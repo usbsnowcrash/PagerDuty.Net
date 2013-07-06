@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace PagerDuty.Net {
     [Serializable()]
     public class Incident {
+        public string id { get; set; }
         public string incident_number { get; set; }
         public string status { get; set; }
         public DateTime created_on { get; set; }
@@ -18,5 +19,6 @@ namespace PagerDuty.Net {
         public DateTime last_status_change_on { get; set; }
         public string trigger_summary_data { get; set; }
         public string trigger_details_html_url { get; set; }
+        public int number_of_escalations { get; set; }
     }
 }

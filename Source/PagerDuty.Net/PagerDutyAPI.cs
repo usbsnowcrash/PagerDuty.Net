@@ -86,6 +86,19 @@ namespace PagerDuty.Net {
             return resp.Data;
         }
 
+        public Incident GetIncident(string id) {
+            var client = this.GetClient("/v1/incidents/" + id);
+            var req = this.GetRequest();
+            
+            var resp = client.Execute<Incident>(req);
+
+            if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
         /// <summary>
         ///  Used to query current and historical PagerDuty incidents over a date range
         /// </summary>

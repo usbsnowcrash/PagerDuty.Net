@@ -8,5 +8,6 @@ namespace PagerDuty.Net {
     [Serializable()]
     public class TriggerSummaryData {
         public string subject { get; set; }
+        public string description { get; set; }
     }
 }

@@ -51,6 +51,22 @@ namespace PagerDuty.Net.Tests {
         }
 
         [TestMethod]
+        public void GetIncident_PerformsCorrectRequest() {
+            //Setup
+            var response = new RestResponse<Incident> { Data = new Incident() };
+            var restReq = new Mock<IRestRequest>();
+            var restClient = new Mock<RestClient>();
+            restClient.Setup(x => x.Execute<Incident>(It.IsAny<IRestRequest>())).Returns(response);
+
+            var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "token");
+            api.GetIncident("PIJ90N7");
+
+            //Assert
+            restReq.VerifyAll();
+            restClient.VerifyAll();
+        }
+
+        [TestMethod]
         public void GetIncidents_PerformsCorrectRequest() {
             //Setup
             var response = new RestResponse<IncidentsResponse> { Data = new IncidentsResponse() };
