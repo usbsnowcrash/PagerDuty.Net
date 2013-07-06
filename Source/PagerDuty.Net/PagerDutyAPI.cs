@@ -86,5 +86,67 @@ namespace PagerDuty.Net {
             return resp.Data;
         }
 
+        /// <summary>
+        ///  Used to query current and historical PagerDuty incidents over a date range
+        /// </summary>
+        /// <param name="since">Start date</param>
+        /// <param name="until">End date</param>
+        /// <param name="fields">Specify which fields return, all fields return by default</param>
+        /// <param name="status">Returns only the incidents currently in the passed status(es). Valid status options are triggered, acknowledged, and resolved</param>
+        /// <param name="incident_key">Returns only the incidents with the passed de-duplication key</param>
+        /// <param name="service">Returns only the incidents associated with the passed service(s). This expects one or more service IDs.  Separate multiple ids by a comma</param>
+        /// <param name="assigned_to_user">Returns only the incidents currently assigned to the passed user(s). This expects one or more user IDs. </param>
+        /// <param name="sort_by">Which field to sort by</param>
+        /// <param name="sort_direction">Sort direction (default is asc)</param>
+        /// <param name="offSet">The offset of the first incident record returned</param>
+        /// <param name="limit">The number of incidents returned.</param>
+        /// <returns></returns>
+        public IncidentsResponse GetIncidents(IncidentFilter filters, IncidentSortBy sort_by, SortDirection sort_direction, int offSet, int limit) {
+            var client = this.GetClient("/v1/incidents");
+            var req = this.GetRequest();
+
+            if (filters.ReturnAll) {
+                req.AddParameter("date_range", "all");
+            } 
+            else {
+                req.AddParameter("since", filters.since.ToString("s"));
+                req.AddParameter("until", filters.until.ToString("s"));
+            }
+            
+            if (!String.IsNullOrEmpty(filters.fields)) {
+                req.AddParameter("fields", filters.fields);
+            }
+
+            if (!String.IsNullOrEmpty(filters.status)) {
+                req.AddParameter("status", filters.fields);
+            }
+
+            if (!String.IsNullOrEmpty(filters.incident_key)) {
+                req.AddParameter("incident_key", filters.incident_key);
+            }
+
+            if (!String.IsNullOrEmpty(filters.service)) {
+                req.AddParameter("service", filters.service);
+            }
+
+            if (!String.IsNullOrEmpty(filters.assigned_to_user)) {
+                req.AddParameter("assigned_to_user", filters.assigned_to_user);
+            }
+
+            if (sort_by != IncidentSortBy.unspecified) {
+                req.AddParameter("sort_by", sort_by.ToString() + ":" + sort_direction.ToString());
+            }
+            
+            req.AddParameter("offset", offSet);
+            req.AddParameter("limit", limit);
+            var resp = client.Execute<IncidentsResponse>(req);
+
+            if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
     }
 }

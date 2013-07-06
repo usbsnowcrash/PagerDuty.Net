@@ -49,5 +49,31 @@ namespace PagerDuty.Net.Tests {
             restReq.VerifyAll();
             restClient.VerifyAll();
         }
+
+        [TestMethod]
+        public void GetIncidents_PerformsCorrectRequest() {
+            //Setup
+            var response = new RestResponse<IncidentsResponse> { Data = new IncidentsResponse() };
+            var since = DateTime.Now.AddDays(-10);
+            var until = DateTime.Now;
+
+            var restReq = new Mock<IRestRequest>();
+            restReq.Setup(x => x.AddParameter("since", since.ToString("s")));
+            restReq.Setup(x => x.AddParameter("assigned_to_user", "bob,jeff"));
+            restReq.Setup(x => x.AddParameter("until", until.ToString("s")));
+            restReq.Setup(x => x.AddParameter("sort_by", "incident_number:desc"));
+            restReq.Setup(x => x.AddParameter("offset", 3));
+            restReq.Setup(x => x.AddParameter("limit", 1000));
+
+            var restClient = new Mock<RestClient>();
+            restClient.Setup(x => x.Execute<IncidentsResponse>(It.IsAny<IRestRequest>())).Returns(response);
+
+            var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "token");
+            api.GetIncidents(new IncidentFilter() { since = since, until = until, assigned_to_user = "bob,jeff" }, IncidentSortBy.incident_number, SortDirection.desc, 3, 1000);
+
+            //Assert
+            restReq.VerifyAll();
+            restClient.VerifyAll();
+        }
     }
 }

@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace PagerDuty.Net {
     [Serializable()]
-    public enum Filter {
-        SMS,
-        Email,
-        Phone,
-        Push,
-        Unspecified
+    public class TriggerSummaryData {
+        public string subject { get; set; }
     }
 }

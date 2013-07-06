@@ -47,6 +47,13 @@
     <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\AlertsResponse.cs" />
     <Compile Include="Models\Filter.cs" />
+    <Compile Include="Models\Incident.cs" />
+    <Compile Include="Models\IncidentFilter.cs" />
+    <Compile Include="Models\IncidentSortBy.cs" />
+    <Compile Include="Models\IncidentsResponse.cs" />
+    <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\SortDirection.cs" />
+    <Compile Include="Models\TriggerSummaryData.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="PagerDutyAPI.cs" />
     <Compile Include="PagerDutyAPIException.cs" />

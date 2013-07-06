@@ -5,12 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PagerDuty.Net {
-    [Serializable()]
-    public enum Filter {
-        SMS,
-        Email,
-        Phone,
-        Push,
-        Unspecified
+    public enum IncidentSortBy {
+        incident_number,
+        created_on,
+        resolved_on,
+        unspecified
     }
 }
