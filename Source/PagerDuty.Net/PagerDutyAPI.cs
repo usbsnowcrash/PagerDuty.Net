@@ -86,6 +86,11 @@ namespace PagerDuty.Net {
             return resp.Data;
         }
 
+        /// <summary>
+        /// Retrieve an incident
+        /// </summary>
+        /// <param name="id">ID of the incident</param>
+        /// <returns></returns>
         public Incident GetIncident(string id) {
             var client = this.GetClient("/v1/incidents/" + id);
             var req = this.GetRequest();
@@ -161,5 +166,46 @@ namespace PagerDuty.Net {
             return resp.Data;
         }
 
+        /// <summary>
+        /// Retrieve an incident
+        /// </summary>
+        /// <param name="id">ID of the incident</param>
+        /// <returns></returns>
+        public List<Note> GetNotesForIncident(string id) {
+            var client = this.GetClient("/v1/incidents/"+id+"/notes");
+            var req = this.GetRequest();
+
+            var resp = client.Execute<List<Note>>(req);
+
+            if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
+        /// <summary>
+        /// Add a new note to an incident
+        /// </summary>
+        /// <param name="note">Content of the note</param>
+        /// <param name="incident_id">The incident you are attaching to</param>
+        /// <param name="requestor_id">User you are posting the note on behalf of</param>
+        /// <returns></returns>
+        public Note PostNoteForIncident(string note,string incident_id, string requestor_id) {
+            var client = this.GetClient("/v1/incidents/" + incident_id + "/notes");
+            var req = this.GetRequest();
+            req.Method = Method.POST;
+
+            req.AddParameter("application/json; charset=utf-8", "{\"requester_id\":\"" + requestor_id + "\",\"note\":{\"content\":\"" + note + "\"}}", ParameterType.RequestBody);
+            req.RequestFormat = DataFormat.Json;
+
+            var resp = client.Execute<Note>(req);
+
+            if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PagerDuty.Net;
 using RestSharp;
 using Moq;
+using System.Collections.Generic;
 
 namespace PagerDuty.Net.Tests {
     [TestClass]
@@ -86,6 +87,43 @@ namespace PagerDuty.Net.Tests {
 
             var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "token");
             api.GetIncidents(new IncidentFilter() { since = since, until = until, assigned_to_user = "bob,jeff" }, IncidentSortBy.incident_number, SortDirection.desc, 3, 1000);
+
+            //Assert
+            restReq.VerifyAll();
+            restClient.VerifyAll();
+        }
+
+        [TestMethod]
+        public void GetIncidentNotes_PerformsCorrectRequest() {
+            //Setup
+            var response = new RestResponse<List<Note>> { Data = new List<Note>() };
+            var restReq = new Mock<IRestRequest>();
+
+            var restClient = new Mock<RestClient>();
+            restClient.Setup(x => x.Execute<List<Note>>(It.IsAny<IRestRequest>())).Returns(response);
+
+            var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "token");
+            api.GetNotesForIncident("EXAMPLE");
+
+            //Assert
+            restReq.VerifyAll();
+            restClient.VerifyAll();
+        }
+
+        [TestMethod]
+        public void PostNoteForIncident_PerformsCorrectRequest() {
+            //Setup
+            var response = new RestResponse<Note> { Data = new Note() };
+            var restReq = new Mock<IRestRequest>();
+            restReq.Setup(x => x.AddParameter("application/json; charset=utf-8", "{\"requester_id\":\"reqid\",\"note\":{\"content\":\"note\"}}", ParameterType.RequestBody));
+            restReq.SetupSet(x => x.Method = Method.POST);
+            restReq.SetupSet(x => x.RequestFormat = DataFormat.Json);
+
+            var restClient = new Mock<RestClient>();
+            restClient.Setup(x => x.Execute<Note>(It.IsAny<IRestRequest>())).Returns(response);
+
+            var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "token");
+            api.PostNoteForIncident("note", "id", "reqid");
 
             //Assert
             restReq.VerifyAll();

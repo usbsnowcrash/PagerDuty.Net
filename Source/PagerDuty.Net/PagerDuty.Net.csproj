@@ -51,6 +51,7 @@
     <Compile Include="Models\IncidentFilter.cs" />
     <Compile Include="Models\IncidentSortBy.cs" />
     <Compile Include="Models\IncidentsResponse.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\SortDirection.cs" />
     <Compile Include="Models\TriggerSummaryData.cs" />
