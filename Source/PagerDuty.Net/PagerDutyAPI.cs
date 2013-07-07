@@ -87,6 +87,33 @@ namespace PagerDuty.Net {
         }
 
         /// <summary>
+        /// Get high level statistics about the number of alerts (SMSes, phone calls and emails) sent for the desired time period, summed daily, weekly or monthly
+        /// </summary>
+        /// <param name="since">The start of the date range over which you want to search. The time element is optional.</param>
+        /// <param name="until">The end of the date range over which you want to search.</param>
+        /// <param name="rollup">Specifies the bucket duration for each summation</param>
+        /// <returns></returns>
+        public AlertReport GetAlertsReport(DateTime? since, DateTime? until, Rollup rollup) {
+            var client = this.GetClient("/v1/reports/alerts_per_time");
+            var req = this.GetRequest();
+
+            if(since != null){
+                req.AddParameter("since", since.Value.ToString("s"));
+            }
+            if (until != null) {
+                req.AddParameter("until", until.Value.ToString("s"));
+            }
+            req.AddParameter("rollup", rollup.ToString());
+            var resp = client.Execute<AlertReport>(req);
+
+            if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
+        /// <summary>
         /// Retrieve an incident
         /// </summary>
         /// <param name="id">ID of the incident</param>
