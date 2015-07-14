@@ -32,7 +32,7 @@ namespace PagerDuty.Net.Tests {
             Assert.IsNotNull(myAlert.user);
 
             Assert.AreEqual("22012", myAlert.id);
-            Assert.AreEqual(new DateTime(635010296130000000), myAlert.created_at);
+            Assert.AreEqual(new DateTime(635010512130000000), myAlert.created_at);
             Assert.AreEqual("I caught up to it and told it to slow down.", myAlert.content);
         }
 
