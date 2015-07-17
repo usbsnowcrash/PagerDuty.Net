@@ -194,7 +194,7 @@ namespace PagerDuty.Net {
         }
 
         /// <summary>
-        /// Retrieve an incident
+        /// Retrieve notes for an incident
         /// </summary>
         /// <param name="id">ID of the incident</param>
         /// <returns></returns>
@@ -227,6 +227,68 @@ namespace PagerDuty.Net {
             req.RequestFormat = DataFormat.Json;
 
             var resp = client.Execute<Note>(req);
+
+            if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
+        /// <summary>
+        /// Makes a call to https://<subdomain>.pagerduty.com/api/v1/schedules
+        /// </summary>
+        /// <returns></returns>
+        public SchedulesResponse GetSchedules()
+        {
+            var client = this.GetClient("/v1/schedules");
+            var req = this.GetRequest();
+
+            var resp = client.Execute<SchedulesResponse>(req);
+
+            if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
+        /// <summary>
+        /// Query schedule entries over a date range
+        /// </summary>
+        /// <param name="id">The schedule id you are querying</param>
+        /// <param name="since">Start date</param>
+        /// <param name="until">End date</param>
+        /// <param name="overflow">Overflow the entries beyond the specified date range</param>
+        /// <param name="time_zone">Time zone used for the results to be rendered</param>
+        /// <param name="user_id">Filter the results by a specific User</param>
+        /// <returns></returns>
+        public ScheduleEntriesResponse GetScheduleEntries(string id, ScheduleEntriesFilter filters)
+        {
+            var client = this.GetClient("/v1/schedules/" + id + "/entries");
+            var req = this.GetRequest();
+
+            if (filters.since != DateTime.MinValue) {
+                req.AddParameter("since", filters.since.ToString("s"));
+            }
+
+            if (filters.until != DateTime.MinValue) {
+                req.AddParameter("until", filters.until.ToString("s"));
+            }
+
+            if (filters.overflow) {
+                req.AddParameter("overflow", "true");
+            }
+
+            if (!String.IsNullOrEmpty(filters.time_zone)) {
+                req.AddParameter("time_zone", filters.time_zone);
+            }
+
+            if (!String.IsNullOrEmpty(filters.user_id)) {
+                req.AddParameter("user_id", filters.user_id);
+            }
+
+            var resp = client.Execute<ScheduleEntriesResponse>(req);
 
             if (resp.Data == null) {
                 throw new PagerDutyAPIException(resp);

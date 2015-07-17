@@ -49,6 +49,7 @@
     <Compile Include="Models\AlertReport.cs" />
     <Compile Include="Models\AlertReportResponse.cs" />
     <Compile Include="Models\AlertsResponse.cs" />
+    <Compile Include="Models\EscalationPolicy.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\IncidentFilter.cs" />
@@ -56,6 +57,11 @@
     <Compile Include="Models\IncidentsResponse.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Rollup.cs" />
+    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\ScheduleEntriesResponse.cs" />
+    <Compile Include="Models\ScheduleEntry.cs" />
+    <Compile Include="Models\ScheduleEntriesFilter.cs" />
+    <Compile Include="Models\SchedulesResponse.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\SortDirection.cs" />
     <Compile Include="Models\TriggerSummaryData.cs" />
