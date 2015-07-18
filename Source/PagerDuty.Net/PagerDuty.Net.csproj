@@ -67,7 +67,7 @@
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\SortDirection.cs" />
     <Compile Include="Models\TriggerRequest.cs" />
-    <Compile Include="Models\TriggerResponse.cs" />
+    <Compile Include="Models\IntegrationResponse.cs" />
     <Compile Include="Models\TriggerSummaryData.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="PagerDutyAPI.cs" />
