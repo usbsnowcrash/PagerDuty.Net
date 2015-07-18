@@ -4,11 +4,9 @@ using System.IO;
 using RestSharp.Deserializers;
 using RestSharp;
 
-namespace PagerDuty.Net.Tests.Models
-{
+namespace PagerDuty.Net.Tests.Models {
     [TestClass]
-    public class ScheduleEntryTest
-    {
+    public class ScheduleEntryTest {
         [TestMethod]
         [DeploymentItem("Models\\ScheduleEntry.json")]
         public void JSONDeserializationTest() {

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PagerDuty.Net
-{
+namespace PagerDuty.Net {
     [Serializable()]
-    public class Schedule
-    {
+    public class Schedule {
         public string id { get; set; }
         public string name { get; set; }
         public string time_zone { get; set; }
