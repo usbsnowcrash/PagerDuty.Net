@@ -47,6 +47,16 @@ namespace PagerDuty.Net {
         }
 
         /// <summary>
+        /// Acknowledge an incident using the integration API.
+        /// </summary>
+        /// <param name="integrationUrl">Integration API Url</param>
+        /// <param name="aRequest">Acknowledge details</param>
+        /// <returns></returns>
+        public IntegrationResponse Acknowledge(string integrationUrl, AcknowledgeRequest aRequest) {
+            return this.PostIntegrationRequest(integrationUrl, aRequest);
+        }
+
+        /// <summary>
         /// Makes a call to https://<subdomain>.pagerduty.com/api/v1/alerts
         /// </summary>
         /// <param name="since">Start date</param>
@@ -212,30 +222,6 @@ namespace PagerDuty.Net {
         }
 
         /// <summary>
-        /// Add a new note to an incident
-        /// </summary>
-        /// <param name="note">Content of the note</param>
-        /// <param name="incident_id">The incident you are attaching to</param>
-        /// <param name="requestor_id">User you are posting the note on behalf of</param>
-        /// <returns></returns>
-        public Note PostNoteForIncident(string note,string incident_id, string requestor_id) {
-            var client = this.GetClient("/v1/incidents/" + incident_id + "/notes");
-            var req = this.GetRequest();
-            req.Method = Method.POST;
-
-            req.AddParameter("application/json; charset=utf-8", "{\"requester_id\":\"" + requestor_id + "\",\"note\":{\"content\":\"" + note + "\"}}", ParameterType.RequestBody);
-            req.RequestFormat = DataFormat.Json;
-
-            var resp = client.Execute<Note>(req);
-
-            if (resp.Data == null) {
-                throw new PagerDutyAPIException(resp);
-            }
-
-            return resp.Data;
-        }
-
-        /// <summary>
         /// Makes a call to https://<subdomain>.pagerduty.com/api/v1/schedules
         /// </summary>
         /// <returns></returns>
@@ -291,6 +277,66 @@ namespace PagerDuty.Net {
             var resp = client.Execute<ScheduleEntriesResponse>(req);
 
             if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
+        /// <summary>
+        /// Add a new note to an incident
+        /// </summary>
+        /// <param name="note">Content of the note</param>
+        /// <param name="incident_id">The incident you are attaching to</param>
+        /// <param name="requestor_id">User you are posting the note on behalf of</param>
+        /// <returns></returns>
+        public Note PostNoteForIncident(string note, string incident_id, string requestor_id)
+        {
+            var client = this.GetClient("/v1/incidents/" + incident_id + "/notes");
+            var req = this.GetRequest();
+            req.Method = Method.POST;
+
+            req.AddParameter("application/json; charset=utf-8", "{\"requester_id\":\"" + requestor_id + "\",\"note\":{\"content\":\"" + note + "\"}}", ParameterType.RequestBody);
+            req.RequestFormat = DataFormat.Json;
+
+            var resp = client.Execute<Note>(req);
+
+            if (resp.Data == null)
+            {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
+        /// <summary>
+        /// Trigger an incident using the integration API.
+        /// </summary>
+        /// <param name="integrationUrl">Integration API Url</param>
+        /// <param name="aRequest">Trigger details</param>
+        /// <returns></returns>
+        public IntegrationResponse Trigger(string integrationUrl, TriggerRequest tRequest) {
+            return this.PostIntegrationRequest(integrationUrl, tRequest);
+        }
+
+        /// <summary>
+        /// Post a message to the integration API.
+        /// </summary>
+        /// <param name="integrationUrl">Integration API Url</param>
+        /// <param name="request">Message to post</param>
+        /// <returns></returns>
+        private IntegrationResponse PostIntegrationRequest(string integrationUrl, object request) {
+            var client = this.GetClient(integrationUrl);
+            var req = this.GetRequest();
+            req.Method = Method.POST;
+
+            req.RequestFormat = DataFormat.Json;
+            req.AddBody(request);
+
+            var resp = client.Execute<IntegrationResponse>(req);
+
+            if (resp.Data == null)
+            {
                 throw new PagerDutyAPIException(resp);
             }
 
