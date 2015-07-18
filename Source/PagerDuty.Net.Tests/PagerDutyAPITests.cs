@@ -111,6 +111,47 @@ namespace PagerDuty.Net.Tests {
         }
 
         [TestMethod]
+        public void GetSchedules_PerformsCorrectRequest() {
+            //Setup
+            var response = new RestResponse<SchedulesResponse>() { Data = new SchedulesResponse() };
+            var restReq = new Mock<IRestRequest>();
+
+            var restClient = new Mock<RestClient>();
+            restClient.Setup(x => x.Execute<SchedulesResponse>(It.IsAny<IRestRequest>())).Returns(response);
+
+            var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "tokan");
+            api.GetSchedules();
+
+            //Assert
+            restReq.VerifyAll();
+            restClient.VerifyAll();
+        }
+
+        [TestMethod]
+        public void GetScheduleEntries_PerformsCorrectRequest() {
+            //Setup
+            var response = new RestResponse<ScheduleEntriesResponse>() { Data = new ScheduleEntriesResponse() };
+            var since = DateTime.Now.AddDays(-10);
+            var until = DateTime.Now;
+
+            var restReq = new Mock<IRestRequest>();
+            restReq.Setup(x => x.AddParameter("since", since.ToString("s")));
+            restReq.Setup(x => x.AddParameter("until", until.ToString("s")));
+            restReq.Setup(x => x.AddParameter("overflow", "true"));
+            restReq.Setup(x => x.AddParameter("time_zone", "UTC"));
+
+            var restClient = new Mock<RestClient>();
+            restClient.Setup(x => x.Execute<ScheduleEntriesResponse>(It.IsAny<IRestRequest>())).Returns(response);
+
+            var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "token");
+            api.GetScheduleEntries("FS4LEQD", new ScheduleEntriesFilter() { since = since, until = until, overflow = true, time_zone = "UTC" });
+
+            //Assert
+            restReq.VerifyAll();
+            restClient.VerifyAll();
+        }
+
+        [TestMethod]
         public void PostNoteForIncident_PerformsCorrectRequest() {
             //Setup
             var response = new RestResponse<Note> { Data = new Note() };
