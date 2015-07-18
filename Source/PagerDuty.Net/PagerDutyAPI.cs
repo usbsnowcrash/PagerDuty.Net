@@ -326,7 +326,7 @@ namespace PagerDuty.Net {
         /// <param name="request">Message to post</param>
         /// <returns></returns>
         private IntegrationResponse PostIntegrationRequest(string integrationUrl, object request) {
-            var client = this.GetClient(integrationUrl);
+            var client = new RestClient() { Timeout = this.Timeout, BaseUrl = integrationUrl };
             var req = this.GetRequest();
             req.Method = Method.POST;
 
