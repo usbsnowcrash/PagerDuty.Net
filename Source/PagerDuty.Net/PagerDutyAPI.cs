@@ -142,6 +142,16 @@ namespace PagerDuty.Net {
         }
 
         /// <summary>
+        /// Get incident log entries
+        /// </summary>
+        /// <param name="id">Incident id</param>
+        /// <param name="filters">Log entry filters</param>
+        /// <returns></returns>
+        public LogEntriesResponse GetIncidentLogEntries(string id, LogEntriesFilter filters) {
+            return this.GetLogEntriesRequest("/v1/incidents/" + id + "/log_entries", filters);
+        }
+
+        /// <summary>
         ///  Used to query current and historical PagerDuty incidents over a date range
         /// </summary>
         /// <param name="since">Start date</param>
@@ -195,6 +205,41 @@ namespace PagerDuty.Net {
             req.AddParameter("offset", offSet);
             req.AddParameter("limit", limit);
             var resp = client.Execute<IncidentsResponse>(req);
+
+            if (resp.Data == null) {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
+        /// <summary>
+        /// List all incident log entries across the entire account
+        /// </summary>
+        /// <param name="filters">Log entry filters</param>
+        /// <returns></returns>
+        public LogEntriesResponse GetLogEntries(LogEntriesFilter filters) {
+            return this.GetLogEntriesRequest("/v1/log_entries", filters);
+        }
+
+        /// <summary>
+        /// Get details for a specific incident log entry
+        /// </summary>
+        /// <param name="id">Id of the log entry</param>
+        /// <returns></returns>
+        public LogEntryResponse GetLogEntry(string id, LogEntriesFilter filters) {
+            var client = this.GetClient("/v1/log_entries/" + id);
+            var req = this.GetRequest();
+
+            if (!String.IsNullOrEmpty(filters.time_zone)) {
+                req.AddParameter("time_zone", filters.time_zone);
+            }
+
+            if (filters.include != null && filters.include.Count > 0) {
+                req.AddParameter("include", filters.include);
+            }
+
+            var resp = client.Execute<LogEntryResponse>(req);
 
             if (resp.Data == null) {
                 throw new PagerDutyAPIException(resp);
@@ -337,6 +382,45 @@ namespace PagerDuty.Net {
 
             if (resp.Data == null)
             {
+                throw new PagerDutyAPIException(resp);
+            }
+
+            return resp.Data;
+        }
+
+        /// <summary>
+        /// Get a list of log entries
+        /// </summary>
+        /// <param name="url">Url to use for the call</param>
+        /// <param name="filters">Log entry filters</param>
+        /// <returns></returns>
+        private LogEntriesResponse GetLogEntriesRequest(string url, LogEntriesFilter filters) {
+            var client = this.GetClient(url);
+            var req = this.GetRequest();
+
+            if (filters.since != DateTime.MinValue) {
+                req.AddParameter("since", filters.since.ToString("s"));
+            }
+
+            if (filters.until != DateTime.MinValue) {
+                req.AddParameter("until", filters.until.ToString("s"));
+            }
+
+            if (!String.IsNullOrEmpty(filters.time_zone)) {
+                req.AddParameter("time_zone", filters.time_zone);
+            }
+
+            if (filters.is_overview) {
+                req.AddParameter("is_overview", "true");
+            }
+
+            if (filters.include != null && filters.include.Count > 0) {
+                req.AddParameter("include", filters.include);
+            }
+
+            var resp = client.Execute<LogEntriesResponse>(req);
+
+            if (resp.Data == null) {
                 throw new PagerDutyAPIException(resp);
             }
 
