@@ -1,5 +1,6 @@
 PagerDuty.Net
 =============
+[![Build status](https://ci.appveyor.com/api/projects/status/q94q3dvi2xi9h29l?svg=true)](https://ci.appveyor.com/project/usbsnowcrash/pagerduty-net)
 
 A wrapper for the PagerDuty API
 
