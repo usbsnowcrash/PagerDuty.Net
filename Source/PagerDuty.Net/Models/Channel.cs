@@ -18,7 +18,7 @@ namespace PagerDuty.Net {
         //Nagios 
         public string host { get; set; }
         public string service { get; set; }
-        public string state { get; }
+        public string state { get; set; }
 
         //API channel specific
         public string service_key { get; set; }

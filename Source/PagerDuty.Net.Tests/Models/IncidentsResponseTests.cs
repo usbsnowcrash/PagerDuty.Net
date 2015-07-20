@@ -30,7 +30,6 @@ namespace PagerDuty.Net.Tests {
 
             Assert.IsNotNull(myAlert);
             Assert.IsNotNull(myAlert.incidents);
-            Assert.IsNotNull(myAlert.incidents);
 
             Assert.AreEqual(2, myAlert.incidents.Count);
             Assert.AreEqual(100, myAlert.limit);

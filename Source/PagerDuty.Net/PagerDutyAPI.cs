@@ -52,8 +52,8 @@ namespace PagerDuty.Net {
         /// <param name="integrationUrl">Integration API Url</param>
         /// <param name="aRequest">Acknowledge details</param>
         /// <returns></returns>
-        public IntegrationResponse Acknowledge(string integrationUrl, AcknowledgeRequest aRequest) {
-            return this.PostIntegrationRequest(integrationUrl, aRequest);
+        public IntegrationResponse Acknowledge(AcknowledgeRequest aRequest) {
+            return this.PostIntegrationRequest(aRequest);
         }
 
         /// <summary>
@@ -360,8 +360,8 @@ namespace PagerDuty.Net {
         /// <param name="integrationUrl">Integration API Url</param>
         /// <param name="aRequest">Trigger details</param>
         /// <returns></returns>
-        public IntegrationResponse Trigger(string integrationUrl, TriggerRequest tRequest) {
-            return this.PostIntegrationRequest(integrationUrl, tRequest);
+        public IntegrationResponse Trigger(TriggerRequest tRequest) {
+            return this.PostIntegrationRequest(tRequest);
         }
 
         /// <summary>
@@ -370,7 +370,8 @@ namespace PagerDuty.Net {
         /// <param name="integrationUrl">Integration API Url</param>
         /// <param name="request">Message to post</param>
         /// <returns></returns>
-        private IntegrationResponse PostIntegrationRequest(string integrationUrl, object request) {
+        private IntegrationResponse PostIntegrationRequest(object request) {
+            var integrationUrl = "https://events.pagerduty.com/generic/2010-04-15/create_event.json";
             var client = new RestClient() { Timeout = this.Timeout, BaseUrl = integrationUrl };
             var req = this.GetRequest();
             req.Method = Method.POST;
