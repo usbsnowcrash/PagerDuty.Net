@@ -33,7 +33,7 @@ namespace PagerDuty.Net.Tests {
             Assert.AreEqual("PWL7QXS", myAlert.id);
             Assert.AreEqual("Phone", myAlert.type);
             Assert.AreEqual("+15555551234", myAlert.address);
-            Assert.AreEqual(new DateTime(634982021300000000), myAlert.started_at);
+            Assert.AreEqual(new DateTime(634981805300000000), myAlert.started_at);
         }
     }
 }
