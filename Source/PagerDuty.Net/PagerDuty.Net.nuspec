@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PagerDutyNet</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>usbsnowcrash</owners>
+    <licenseUrl>https://github.com/usbsnowcrash/PagerDuty.Net/blob/master/MIT-LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/usbsnowcrash/PagerDuty.Net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A wrapper for the pagerduty.com api.</description>
+    <releaseNotes>No breaking changes but a ton of new endpoints supported (Schedule, Schedule entries, Trigger, Acknowledge, and Log Entries) thanks Iszomoru</releaseNotes>
+    <copyright>Copyright Jeffery Yeary 2015</copyright>
+    <tags>pagerduty pager duty pagerduty.com api</tags>
+  </metadata>
+</package>
