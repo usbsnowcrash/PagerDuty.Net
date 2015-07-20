@@ -1,0 +1,33 @@
+﻿{
+  "schedules": [
+    {
+        "name": "24x7 Schedule",
+        "time_zone": "UTC",
+        "today": "2015-07-17",
+        "description": "",
+        "escalation_policies": [
+            {
+                "id": "PAD5HK6",
+                "name": "Escalation Policy - 24x7"
+            }
+        ],
+        "id": "FS4LEQD"
+    },
+    {
+        "name": "Emergency Schedule",
+        "time_zone": "UTC",
+        "today": "2015-07-17",
+        "description": "",
+        "escalation_policies": [
+            {
+                "id": "DFRWQ8W",
+                "name": "Escalation Policy - Emergency"
+            }
+        ],
+        "id": "DFSN3D1"
+    }
+  ],
+  "limit": 100,
+  "offset": 0,
+  "total": 2
+}

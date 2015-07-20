@@ -45,19 +45,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AcknowledgeRequest.cs" />
+    <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\AlertReport.cs" />
     <Compile Include="Models\AlertReportResponse.cs" />
     <Compile Include="Models\AlertsResponse.cs" />
+    <Compile Include="Models\Channel.cs" />
+    <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\EscalationPolicy.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\IncidentFilter.cs" />
     <Compile Include="Models\IncidentSortBy.cs" />
     <Compile Include="Models\IncidentsResponse.cs" />
+    <Compile Include="Models\LogEntriesFilter.cs" />
+    <Compile Include="Models\LogEntriesResponse.cs" />
+    <Compile Include="Models\LogEntry.cs" />
+    <Compile Include="Models\LogEntryResponse.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Rollup.cs" />
+    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\ScheduleEntriesResponse.cs" />
+    <Compile Include="Models\ScheduleEntry.cs" />
+    <Compile Include="Models\ScheduleEntriesFilter.cs" />
+    <Compile Include="Models\SchedulesResponse.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\SortDirection.cs" />
+    <Compile Include="Models\TriggerRequest.cs" />
+    <Compile Include="Models\IntegrationResponse.cs" />
     <Compile Include="Models\TriggerSummaryData.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="PagerDutyAPI.cs" />

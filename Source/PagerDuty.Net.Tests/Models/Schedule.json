@@ -1,0 +1,13 @@
+﻿{
+    "name": "24x7 Schedule",
+    "time_zone": "UTC",
+    "today": "2015-07-17",
+    "description": "",
+    "escalation_policies": [
+        {
+            "id": "PAD5HK6",
+            "name": "Escalation Policy - 24x7"
+        }
+    ],
+    "id": "FS4LEQD"
+}

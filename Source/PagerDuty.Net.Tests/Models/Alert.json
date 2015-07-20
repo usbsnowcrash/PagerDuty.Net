@@ -1,8 +1,8 @@
 ﻿{
-      "id": "PWL7QXS",
-      "type": "Phone",
-      "started_at": "2013-03-06T15:28:50-05:00",
-      "user": {
+    "id": "PWL7QXS",
+    "type": "Phone",
+    "started_at": "2013-03-06T15:28:50Z",
+    "user": {
         "id": "PT23IWX",
         "name": "Tim Wright",
         "email": "tim@acme.com",
@@ -13,6 +13,6 @@
         "user_url": "/users/PT23IWX",
         "invitation_sent": false,
         "marketing_opt_out": false
-      },
-      "address": "+15555551234"
+    },
+    "address": "+15555551234"
 }
