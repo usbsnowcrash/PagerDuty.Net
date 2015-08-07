@@ -31,7 +31,7 @@ namespace PagerDuty.Net {
         /// <param name="url">The API endpoint you are hitting</param>
         /// <returns></returns>
         protected virtual IRestClient GetClient(string url) {
-            var client = new RestClient() { Timeout = this.Timeout, BaseUrl = "https://" + Subdomain + ".pagerduty.com/api" + url };
+            var client = new RestClient() { Timeout = this.Timeout, BaseUrl = new Uri("https://" + Subdomain + ".pagerduty.com/api" + url) };
             client.AddDefaultParameter(new Parameter { Name = "Authorization", Value = "Token token=" + this.AccessToken, Type = ParameterType.HttpHeader });
             return client;
         }
@@ -372,7 +372,7 @@ namespace PagerDuty.Net {
         /// <returns></returns>
         private IntegrationResponse PostIntegrationRequest(object request) {
             var integrationUrl = "https://events.pagerduty.com/generic/2010-04-15/create_event.json";
-            var client = new RestClient() { Timeout = this.Timeout, BaseUrl = integrationUrl };
+            var client = new RestClient() { Timeout = this.Timeout, BaseUrl = new Uri(integrationUrl) };
             var req = this.GetRequest();
             req.Method = Method.POST;
 
