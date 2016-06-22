@@ -163,11 +163,11 @@ namespace PagerDuty.Net.Tests {
         [TestMethod]
         public void GetIncidentNotes_PerformsCorrectRequest() {
             //Setup
-            var response = new RestResponse<List<Note>> { Data = new List<Note>() };
+            var response = new RestResponse<Notes> { Data = new Notes() };
             var restReq = new Mock<IRestRequest>();
 
             var restClient = new Mock<RestClient>();
-            restClient.Setup(x => x.Execute<List<Note>>(It.IsAny<IRestRequest>())).Returns(response);
+            restClient.Setup(x => x.Execute<Notes>(It.IsAny<IRestRequest>())).Returns(response);
 
             var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "token");
             api.GetNotesForIncident("EXAMPLE");

@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestSharp.105.1.0\lib\net4\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net4\RestSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,6 +65,7 @@
     <Compile Include="Models\LogEntry.cs" />
     <Compile Include="Models\LogEntryResponse.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\Notes.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Rollup.cs" />
     <Compile Include="Models\Schedule.cs" />
