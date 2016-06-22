@@ -65,6 +65,7 @@
     <Compile Include="Models\LogEntry.cs" />
     <Compile Include="Models\LogEntryResponse.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\Notes.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Rollup.cs" />
     <Compile Include="Models\Schedule.cs" />

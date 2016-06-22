@@ -257,13 +257,13 @@ namespace PagerDuty.Net {
             var client = this.GetClient("/v1/incidents/"+id+"/notes");
             var req = this.GetRequest();
 
-            var resp = client.Execute<List<Note>>(req);
+            var resp = client.Execute<Notes>(req);
 
             if (resp.Data == null) {
                 throw new PagerDutyAPIException(resp);
             }
 
-            return resp.Data;
+            return resp.Data.notes;
         }
 
         /// <summary>
