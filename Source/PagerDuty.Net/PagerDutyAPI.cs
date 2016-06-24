@@ -365,6 +365,17 @@ namespace PagerDuty.Net {
         }
 
         /// <summary>
+        /// Resolve an incident using the integration API.
+        /// </summary>
+        /// <param name="integrationUrl">Integration API Url</param>
+        /// <param name="rRequest">Resolve details</param>
+        /// <returns></returns>
+        public IntegrationResponse Resolve(ResolveRequest rRequest)
+        {
+            return this.PostIntegrationRequest(rRequest);
+        }
+
+        /// <summary>
         /// Post a message to the integration API.
         /// </summary>
         /// <param name="integrationUrl">Integration API Url</param>
