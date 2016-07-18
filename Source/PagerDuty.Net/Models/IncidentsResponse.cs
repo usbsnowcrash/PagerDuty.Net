@@ -11,5 +11,6 @@ namespace PagerDuty.Net {
         public int limit { get; set; }
         public int offset { get; set; }
         public int total { get; set; }
+        public bool more { get; set; }
     }
 }

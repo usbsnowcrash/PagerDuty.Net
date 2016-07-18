@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PagerDuty.Net {
     public enum IncidentSortBy {
         incident_number,
-        created_on,
+        created_at,
         resolved_on,
         unspecified
     }

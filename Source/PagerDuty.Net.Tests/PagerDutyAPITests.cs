@@ -129,7 +129,7 @@ namespace PagerDuty.Net.Tests {
             restClient.Setup(x => x.Execute<IncidentsResponse>(It.IsAny<IRestRequest>())).Returns(response);
 
             var api = new MockPagerDutyAPI(restClient.Object, restReq.Object, "domain", "token");
-            api.GetIncidents(new IncidentFilter() { since = since, until = until, assigned_to_user = "bob,jeff" }, IncidentSortBy.incident_number, SortDirection.desc, 3, 1000);
+            api.GetIncidents(new IncidentFilter() { since = since, until = until, user_ids = new[] { "bob,jeff" } }, IncidentSortBy.incident_number, SortDirection.desc, 3, 1000);
 
             //Assert
             restReq.VerifyAll();

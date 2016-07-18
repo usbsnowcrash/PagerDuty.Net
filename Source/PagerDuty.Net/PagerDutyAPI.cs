@@ -31,7 +31,7 @@ namespace PagerDuty.Net {
         /// <param name="url">The API endpoint you are hitting</param>
         /// <returns></returns>
         protected virtual IRestClient GetClient(string url) {
-            var client = new RestClient() { Timeout = this.Timeout, BaseUrl = new Uri("https://" + Subdomain + ".pagerduty.com/api" + url) };
+            var client = new RestClient() { Timeout = this.Timeout, BaseUrl = new Uri("https://api.pagerduty.com" + url) };
             client.AddDefaultParameter(new Parameter { Name = "Authorization", Value = "Token token=" + this.AccessToken, Type = ParameterType.HttpHeader });
             return client;
         }
@@ -129,7 +129,7 @@ namespace PagerDuty.Net {
         /// <param name="id">ID of the incident</param>
         /// <returns></returns>
         public Incident GetIncident(string id) {
-            var client = this.GetClient("/v1/incidents/" + id);
+            var client = this.GetClient("/incidents/" + id);
             var req = this.GetRequest();
             
             var resp = client.Execute<Incident>(req);
@@ -148,7 +148,7 @@ namespace PagerDuty.Net {
         /// <param name="filters">Log entry filters</param>
         /// <returns></returns>
         public LogEntriesResponse GetIncidentLogEntries(string id, LogEntriesFilter filters) {
-            return this.GetLogEntriesRequest("/v1/incidents/" + id + "/log_entries", filters);
+            return this.GetLogEntriesRequest("/incidents/" + id + "/log_entries", filters);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace PagerDuty.Net {
         /// <param name="limit">The number of incidents returned.</param>
         /// <returns></returns>
         public IncidentsResponse GetIncidents(IncidentFilter filters, IncidentSortBy sort_by, SortDirection sort_direction, int offSet, int limit) {
-            var client = this.GetClient("/v1/incidents");
+            var client = this.GetClient("/incidents");
             var req = this.GetRequest();
 
             if (filters.ReturnAll) {
@@ -194,8 +194,8 @@ namespace PagerDuty.Net {
                 req.AddParameter("service", filters.service);
             }
 
-            if (!String.IsNullOrEmpty(filters.assigned_to_user)) {
-                req.AddParameter("assigned_to_user", filters.assigned_to_user);
+            if (filters.user_ids != null && filters.user_ids.Any()) {
+                req.AddParameter("assigned_to_user", string.Join(",", filters.user_ids));
             }
 
             if (sort_by != IncidentSortBy.unspecified) {
@@ -254,7 +254,7 @@ namespace PagerDuty.Net {
         /// <param name="id">ID of the incident</param>
         /// <returns></returns>
         public List<Note> GetNotesForIncident(string id) {
-            var client = this.GetClient("/v1/incidents/"+id+"/notes");
+            var client = this.GetClient("/incidents/"+id+"/notes");
             var req = this.GetRequest();
 
             var resp = client.Execute<Notes>(req);
@@ -337,7 +337,7 @@ namespace PagerDuty.Net {
         /// <returns></returns>
         public Note PostNoteForIncident(string note, string incident_id, string requestor_id)
         {
-            var client = this.GetClient("/v1/incidents/" + incident_id + "/notes");
+            var client = this.GetClient("/incidents/" + incident_id + "/notes");
             var req = this.GetRequest();
             req.Method = Method.POST;
 

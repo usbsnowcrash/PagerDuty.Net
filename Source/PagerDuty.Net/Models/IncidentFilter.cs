@@ -14,6 +14,6 @@ namespace PagerDuty.Net {
         public string status { get; set; }
         public string incident_key { get; set; }
         public string service { get; set; }
-        public string assigned_to_user { get; set; }
+        public string[] user_ids { get; set; }
     }
 }

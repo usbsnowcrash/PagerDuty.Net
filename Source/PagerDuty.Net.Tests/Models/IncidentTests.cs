@@ -33,13 +33,11 @@ namespace PagerDuty.Net.Tests {
             Assert.IsNotNull(myAlert.last_status_change_by);
             
             Assert.AreEqual("1", myAlert.incident_number);
-            Assert.AreEqual(new DateTime(634830005610000000), myAlert.created_on);
+            Assert.AreEqual(new DateTime(634830005610000000), myAlert.created_at);
             Assert.AreEqual("resolved", myAlert.status);
             Assert.AreEqual("https://acme.pagerduty.com/incidents/P2A6J96", myAlert.html_url);
             Assert.AreEqual(null, myAlert.incident_key);
-            Assert.AreEqual(null, myAlert.assigned_to_user);
-            Assert.AreEqual("https://acme.pagerduty.com/incidents/P2A6J96/log_entries/P2NQP6P", myAlert.trigger_details_html_url);
-            Assert.AreEqual(new DateTime(634830006590000000), myAlert.last_status_change_on);
+            Assert.AreEqual(new DateTime(634830006590000000), myAlert.last_status_change_at);
         }
     }
 }
